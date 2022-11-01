@@ -23,6 +23,7 @@
 | 16  | [Contexts vs stores](#contexts-vs-stores)                                                                                                                                           |
 | 17  | [Explain what are slots](#explain-what-are-slots)                                                                                                                                   |
 | 18  | [What are named slots](#what-are-named-slots)                                                                                                                                       |
+| 19  | [What are slot props](#what-are-slot-props)                                                                                                                                         |
 
 1.  ### **What is Svelte.js**
 
