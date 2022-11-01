@@ -1,6 +1,6 @@
 # Svelte Interview Questions & Answers
 
-> Click :star:if you like the project. Pull Requests are highly appreciated!
+> Give us :star:if you like the project. If you have any propositions - pull Requests are highly appreciated!
 
 ### Table of Contents
 
