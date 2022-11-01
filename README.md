@@ -16,6 +16,11 @@
 | 9   | [What are Event Modifiers](#what-are-event-modifiers)                                                                                                                               |
 | 10  | [What are Components events](#what-are-components-events)                                                                                                                           |
 | 11  | [What is Event Forwarding](#what-is-event-forwarding)                                                                                                                               |
+| 12  | [What is class directive](#what-is-class-directive)                                                                                                                                 |
+| 13  | [What is class directive](#what-is-class-directive)                                                                                                                                 |
+| 14  | [What is store binding](#what-is-store-binding)                                                                                                                                     |
+| 15  | [What is Context API](#what-is-context-api)                                                                                                                                         |
+| 16  | [Contexts vs stores](#contexts-vs-stores)                                                                                                                                           |
 
 1.  ### **What is Svelte.js**
 
@@ -139,5 +144,101 @@
     ```
 
     Such `on:message` directive will forward all `message` events.
+
+    **[⬆ Back to Top](#table-of-contents)**
+
+12. ### **What is class directive**
+
+    Class directive allows us to specify with a JavaScript, what classes should be attached to HTML element:
+
+    ```html
+    <button class={selected  === 'foo' ? 'selected' : ''}>foo</button>
+    ```
+
+    That means: if `selected` is equal to `foo` add `selected` class to button element.
+
+    Or in other way when `selected` is `true`:
+
+    ```html
+    <button class:selected>foo</button>
+    ```
+
+    **[⬆ Back to Top](#table-of-contents)**
+
+13. ### **Does svelte have a global store**
+
+    Yup. Svelte has its own replacement for common solutions like Redux or Ngrx. It’s just called writable stores.
+
+    A store is simply an object with a subscribe method that allows interested parties to be notified whenever the store value changes.
+
+    We have two kinds of stores:
+
+    1. writable - we can read and modify data
+    2. readable - we can only read data
+    3. derived - create a store whose value is based on the value of one or more other stores. Store will update themselves automatically, when based stores will change
+
+    Example of writable store:
+
+    ```javascript
+    const name = writable("world");
+    ```
+
+    Example of derived store:
+
+    ```javascript
+    export const name = writable("world");
+
+    export const greeting = derived(name, ($name) => `Hello ${$name}!`);
+    ```
+
+    **[⬆ Back to Top](#table-of-contents)**
+
+14. ### **What is store binding**
+
+    If a store is writable, we can bind it’s value, just as you can bind to local component state.
+
+    Example:
+
+    ```javascript
+    const name = writable('world');
+
+    <input bind:value={$name}>
+    ```
+
+    **[⬆ Back to Top](#table-of-contents)**
+
+15. ### **What is Context API**
+
+    Provides a mechanism for components to talk to each other without passing around data (avoid props drilling) and functions as props, or dispatching lots of events.
+
+    Creation of context:
+
+    ```javascript
+    import { key } from "./mapbox.js";
+
+    setContext(key, {
+      getValue: () => value,
+    });
+    ```
+
+    Usage of context:
+
+    ```javascript
+    const { getMap } = getContext(key);
+    ```
+
+    The key of context id should be Symbol:
+
+    ```javascript
+    const key = Symbol();
+    ```
+
+    or any other unique value.
+
+    **[⬆ Back to Top](#table-of-contents)**
+
+16. ### **Contexts vs stores**
+
+    They differ in that stores are available to any part of an app (global state), while a context is only available to a _component and its descendants_. This can be helpful if you want to use several instances of a component without the state of one interfering with the state of the others.
 
     **[⬆ Back to Top](#table-of-contents)**
