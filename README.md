@@ -21,6 +21,8 @@
 | 14  | [What is store binding](#what-is-store-binding)                                                                                                                                     |
 | 15  | [What is Context API](#what-is-context-api)                                                                                                                                         |
 | 16  | [Contexts vs stores](#contexts-vs-stores)                                                                                                                                           |
+| 17  | [Explain what are slots](#explain-what-are-slots)                                                                                                                                   |
+| 18  | [What are named slots](#what-are-named-slots)                                                                                                                                       |
 
 1.  ### **What is Svelte.js**
 
@@ -240,5 +242,84 @@
 16. ### **Contexts vs stores**
 
     They differ in that stores are available to any part of an app (global state), while a context is only available to a _component and its descendants_. This can be helpful if you want to use several instances of a component without the state of one interfering with the state of the others.
+
+    **[⬆ Back to Top](#table-of-contents)**
+
+17. ### **Explain what are slots**
+
+    Slot is a place where we can put children through props. Like we have something like this:
+
+    ```html
+    <div>
+      <p>I'm a child of the div</p>
+    </div>
+    ```
+
+    But, if we want to pass children to our component:
+
+    ```html
+    <!-- Box component -->
+    <div class="box">
+      <slot></slot>
+    </div>
+    ```
+
+    And from the usage side:
+
+    ```html
+    <Box>
+      <h2>Header</h2>
+      <p>Paragraph</p>
+    </Box>
+    ```
+
+    **[⬆ Back to Top](#table-of-contents)**
+
+18. ### **What are named slots**
+
+    In case when we want to pass a few slots, we can name them. Name works like an identifier and thanks to them Svelte knows where to put a specific slot.
+
+    Example:
+
+    ```html
+    <!-- Box component -->
+    <div class="box">
+      <slot name="”first”"> </slot>
+      <slot name="”last”"> </slot>
+    </div>
+
+    <!-- Usage of Box component -->
+    <Box>
+      <span slot="first"> Rafał </span>
+
+      <span slot="last"> Kostecki </span>
+    </Box>
+    ```
+
+    **[⬆ Back to Top](#table-of-contents)**
+
+19. ### **What are slot props**
+
+    Just like casual components, slots can also have props. For instance we can pass a boolean.
+
+    Example:
+
+    ```html
+    <!-- Hoverable component -->
+    <div on:mouseenter="{enter}" on:mouseleave="{leave}">
+      <slot hovering="{hovering}"></slot>
+    </div>
+
+    <!-- Usage of Hoverable component -->
+    <Hoverable let:hovering="{hovering}">
+      <div class:active="{hovering}">
+        {#if hovering}
+        <p>I am being hovered upon.</p>
+        {:else}
+        <p>Hover over me!</p>
+        {/if}
+      </div>
+    </Hoverable>
+    ```
 
     **[⬆ Back to Top](#table-of-contents)**
